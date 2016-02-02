@@ -4,9 +4,9 @@
     $tag = str_replace('[', '\[', $tag);
     $tag = str_replace(']', '\]', $tag);
     if(fnmatch($tag, $user['nickname']['nickname'])) return true;
-      if(isset($user['previousNicknames'])) {
-        foreach($user['previousNicknames'] as $nick) if(fnmatch($tag, $nick['nickname'])) return true;
-      }
+      // if(isset($user['previousNicknames'])) {
+      //   foreach($user['previousNicknames'] as $nick) if(fnmatch($tag, $nick['nickname'])) return true;
+      // }
     return false;
   }
 
@@ -41,12 +41,24 @@
   }
 
   function replace_a_line($data) {
-    if (stristr($data, 'id='.$GLOBALS['id'])) {
+    if (stristr($data, 'id='.$GLOBALS['id'].' ')) {
       $GLOBALS['replaced'] = true;
       return create_key();
     }
   return $data;
   }
+
+  function update_groups() {
+    $groups = json_decode(file_get_contents('http://actionfps.com/clans/?format=json'), true);
+    $fp = fopen('groups.txt', "w+");
+    foreach($groups as $group) {
+    fwrite($fp, "id={$group['id']} name={$group['name']}\n");
+    }
+  fclose($fp);
+  return 0;
+  }
+
+  update_groups();
 
   if(isset($_GET['id'])) {
 
@@ -69,7 +81,7 @@
     $data = array_map('replace_a_line',$data);
     file_put_contents('users.txt', implode('', $data));
 
-    if($replaced) exit(1);
+    if($replaced) exit(0);
 
     //If user doesn't already have a key
     file_put_contents('users.txt', create_key(), FILE_APPEND | LOCK_EX);
