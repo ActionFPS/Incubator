@@ -35,7 +35,7 @@
     }
     $line .= " pubkey=$key"."\n";
 
-    echo '<a href="actionfps.com://authkey='.base64_encode(file_get_contents('key.pem')).'&authid='.$GLOBALS['id'].'">Add your key</a>';
+    echo '<a href="actionfps://authkey='.base64_encode(file_get_contents('key.pem')).'&authid='.$GLOBALS['id'].'">Add your key</a>';
 
     return $line;
   }
