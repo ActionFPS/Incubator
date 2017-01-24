@@ -17,16 +17,15 @@ def clan_matches(clan, nickname):
 
 def combine(nicks, keys, admins, clans):
     lines = []
-    nicks = json.loads(nicks)
-    admins = admins.split("\n")
-    clans = json.loads(clans)
+    admins = admins
     for key in keys.split("\n"):
         try:
             (k, v) = tuple(key.split("="))
             (u, x) = tuple(k.split("."))
         except:
             continue
-        if x == "privkey":
+        print x
+        if x == "public-key":
             for n in nicks:
                 if n['id'] == u:
                     nick = n['nickname']['nickname']
@@ -38,14 +37,24 @@ def combine(nicks, keys, admins, clans):
                     for clan in clans:
                         if clan_matches(clan, nick):
                             parts.append("group=%s" % clan['id'])
-                    parts.append("privkey=%s" % v)
+                    parts.append("pubkey=%s" % v)
                     lines.append(" ".join(parts))
     return "\n".join(lines)
 
+def combine_files(n,k,a,c):
+    admins = open(a).read()
+    clans = open(c).read()
+    players = open(p).read()
+    keys = open(k).read()
+    print combine(players, keys, admins, clans)
+
 if __name__ == "__main__":
-    import urllib2
-    admins = open('admins.txt').read()
-    clans = open('clans.json').read()
-    players = open('players.json').read()
-    keys = open('keys.properties').read()
+    with open('players.json') as f:
+        players = json.loads(f.read())
+    with open('admins.txt') as f:
+        admins = f.read().split("\n")
+    with open('keys.properties') as f:
+        keys = f.read()
+    with open('clans.json') as f:
+        clans = json.loads(f.read())
     print combine(players, keys, admins, clans)

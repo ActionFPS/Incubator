@@ -7,11 +7,12 @@ def test_tag_match():
     assert not match_tag('*|w00p', 'Drakas|w00pp')
     assert match_tag('*|w00p', 'Drakas|w00p')
 
+keys=("#abc\n\ndrakas.private-key=ABCD\ndrakas.public-key=ABDY")
+admins = ["drakas", "lucas", "sanzo"]
+
 def test_comb():
-    nicknames='[{"id": "drakas", "nickname": {"nickname": "w00p|Drakas"}}]'
-    keys=("#abc\n\ndrakas.privkey=ABCD\ndrakas.pubkey=ABDY")
-    admins = ("drakas\nlucas\nsanzo")
-    clans = '[{"id": "woop", "tag": "w00p|*"}]'
+    nicknames=json.loads('[{"id": "drakas", "nickname": {"nickname": "w00p|Drakas"}}]')
+    clans = json.loads('[{"id": "woop", "tag": "w00p|*"}]')
     # https://actionfps.com/clans/?format=json
-    expected_output = "id=drakas nickname=w00p|Drakas admin group=woop privkey=ABCD"
+    expected_output = "id=drakas nickname=w00p|Drakas admin group=woop pubkey=ABDY"
     assert(combine(nicknames, keys, admins, clans) == expected_output)
