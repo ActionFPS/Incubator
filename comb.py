@@ -37,8 +37,7 @@ def combine(nicks, keys, admins, clans):
                         if clan_matches(clan, nick):
                             parts.append("group=%s" % clan['id'])
                     parts.append("pubkey=%s" % v)
-                    lines.append(" ".join(parts))
-    return "\n".join(lines)
+                    yield " ".join(parts)
 
 def combine_files(n,k,a,c):
     admins = open(a).read()
@@ -51,9 +50,10 @@ if __name__ == "__main__":
     with open('players.json') as f:
         players = json.loads(f.read())
     with open('admins.txt') as f:
-        admins = f.read().split("\n")
+        admins = f.read().splitlines()
     with open('keys.properties') as f:
         keys = f.read()
     with open('clans.json') as f:
         clans = json.loads(f.read())
-    print combine(players, keys, admins, clans)
+    for line in combine(players, keys, admins, clans):
+        print line

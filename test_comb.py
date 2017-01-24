@@ -15,4 +15,4 @@ def test_comb():
     clans = json.loads('[{"id": "woop", "tag": "w00p|*"}]')
     # https://actionfps.com/clans/?format=json
     expected_output = "id=drakas nickname=w00p|Drakas admin group=woop pubkey=ABDY"
-    assert(combine(nicknames, keys, admins, clans) == expected_output)
+    assert(list(combine(nicknames, keys, admins, clans)) == [expected_output])
