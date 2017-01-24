@@ -24,7 +24,6 @@ def combine(nicks, keys, admins, clans):
             (u, x) = tuple(k.split("."))
         except:
             continue
-        print x
         if x == "public-key":
             for n in nicks:
                 if n['id'] == u:
