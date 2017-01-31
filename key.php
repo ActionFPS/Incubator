@@ -49,7 +49,7 @@
   }
 
   function update_groups() {
-    $groups = json_decode(file_get_contents('http://actionfps.com/clans/?format=json'), true);
+    $groups = json_decode(file_get_contents('https://actionfps.com/clans/?format=json'), true);
     $fp = fopen('groups.txt', "w+");
     foreach($groups as $group) {
     fwrite($fp, "id={$group['id']} name={$group['name']}\n");
@@ -60,13 +60,14 @@
 
   update_groups();
 
+$_GET['id'] = 'drakas';
   if(isset($_GET['id'])) {
 
     $id = $_GET['id'];
 
-    if(get_headers('http://actionfps.com/player/?id='.$id.'&format=json')[0] == 'HTTP/1.1 404 Not Found') exit('User does not exist');
-    $user = json_decode(file_get_contents('http://actionfps.com/player/?id='.$id.'&format=json'), true);
-    $groups = json_decode(file_get_contents('http://actionfps.com/clans/?format=json'), true);
+    if(get_headers('https://actionfps.com/player/?id='.$id.'&format=json')[0] == 'HTTP/1.1 404 Not Found') exit('User does not exist');
+    $user = json_decode(file_get_contents('https://actionfps.com/player/?id='.$id.'&format=json'), true);
+    $groups = json_decode(file_get_contents('https://actionfps.com/clans/?format=json'), true);
 
     //get user's groups
     $user['groups'] = array();
