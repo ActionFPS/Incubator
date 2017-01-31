@@ -60,7 +60,6 @@
 
   update_groups();
 
-$_GET['id'] = 'drakas';
   if(isset($_GET['id'])) {
 
     $id = $_GET['id'];
