@@ -6,6 +6,7 @@ def test_tag_match():
     assert not match_tag('w00px|*', 'w00p|Drakas')
     assert not match_tag('*|w00p', 'Drakas|w00pp')
     assert match_tag('*|w00p', 'Drakas|w00p')
+    assert match_tag('*|DnC|*', '|DnC|madcatz')
 
 keys=("#abc\n\ndrakas.private-key=ABCD\ndrakas.public-key=ABDY")
 admins = ["drakas", "lucas", "sanzo"]
