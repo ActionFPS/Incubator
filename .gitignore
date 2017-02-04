@@ -1,3 +1,6 @@
+
+groups.db
+users.db
 .cache
 __pycache__/
 *.pyc

@@ -4,6 +4,11 @@ import os
 import base64
 players = json.loads(urllib.urlopen('https://actionfps.com/players/?format=json').read())
 clans = json.loads(urllib.urlopen('https://actionfps.com/clans/?format=json').read())
+admins = []
+ADMIN_URL = os.getenv('ADMIN_URL')
+if ADMIN_URL is not None:
+    for admin in urllib.urlopen(ADMIN_URL).read().splitlines(False):
+        admins.append(admin)
 users = []
 groups = []
 
@@ -38,6 +43,8 @@ def gen_user(id):
     if len(user) < 2:
         return None
     else:
+        if id in admins:
+            user.append('admin')
         return user
 
 for item in os.listdir('.'):
