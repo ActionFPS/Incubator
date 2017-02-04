@@ -1,7 +1,9 @@
 import json
 
 def match_tag(tag, nickname):
-    if tag.startswith("*"):
+    if tag.startswith("*") and tag.endswith("*"):
+        return tag[1:-1] in nickname
+    elif tag.startswith("*"):
         return nickname.endswith(tag[1:])
     elif tag.endswith("*"):
         return nickname.startswith(tag[:-1])
