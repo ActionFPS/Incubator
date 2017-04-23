@@ -3,7 +3,6 @@ dom() {
       python ~/Incubator/cumb.py
       scp users.db af_server@woop.ac:game/config/users
       scp groups.db af_server@woop.ac:game/config/groups
-
 }
 dom
 inotifywait -m -e close_write,moved_to,create  . |
