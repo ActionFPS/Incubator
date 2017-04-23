@@ -1,8 +1,8 @@
 #!/bin/bash
 dom() {
       python ~/Incubator/cumb.py
-      scp users.db af_server@woop.ac:game/config/users
-      scp groups.db af_server@woop.ac:game/config/groups
+      scp users.db af_server@woop.ac:/home/af_server/game/config/users
+      scp groups.db af_server@woop.ac:/home/af_server/game/config/groups
 }
 dom
 inotifywait -m -e close_write,moved_to,create  . |
