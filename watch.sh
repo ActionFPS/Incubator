@@ -1,8 +1,8 @@
 #!/bin/bash
 dom() {
       python ~/Incubator/cumb.py
-      scp users.db ac_server@woop.ac:game/config/users
-      scp groups.db ac_server@woop.ac:game/config/groups
+      scp users.db af_server@woop.ac:game/config/users
+      scp groups.db af_server@woop.ac:game/config/groups
 
 }
 dom
